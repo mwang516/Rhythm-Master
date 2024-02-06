@@ -22,11 +22,12 @@ exciting.
 ## User Stories:
 In the context of the rhythm game, my *user stories* are as follows: 
 - As a user, I want to be able to create my own account for the game
-- As a user, I want to be able to save and view my progress in my own account
+- As a user, I want to be able to input details about my account, such as username, age, and more
 - As a user, I want to be able to view a list of all the songs available to play
-- As a user, I want to be able to favourite songs that I like from the list of all songs
+- As a user, I want to be able to view my score at the end of each song
+- As a user, I want to be able to add my scores to a list of previous attempts for each song on my account
+- As a user, I want to be able to favourite songs that I like from all songs to a list of my favourites
 - As a user, I want to be able to select a song to play at random
 - As a user, I want to be able to use key controls to play the game
 - As a user, I want to be able to implement custom controls
-- As a user, I want to be able to view and save my scores at the end of each songs
 
