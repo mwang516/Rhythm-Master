@@ -9,7 +9,7 @@ public class Song {
     private final int bpm;
     private final String length; // length of song in the form of MIN:SEC
     // each song will eventually have a chart field which will be an ArrayList,
-    // representing the notes in the gameplay but can't be currently implemented
+    // representing the notes in the gameplay but can't be currently implemented
 
     public Song(String name, String artist, int lengthMin, int lengthSec, int bpm) {
         this.name = name;
