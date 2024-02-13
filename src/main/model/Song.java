@@ -15,9 +15,9 @@ public class Song {
         this.name = name;
         this.artist = artist;
         this.lengthMin = lengthMin;
-        this.lengthSec = lengthSec;
+        this.lengthSec = lengthSec; // FIGURE OUT HOW TO REPRESENT THE LENGTH WITH MIN:SEC FORMAT (2:04 instead of 2:4)
         this.bpm = bpm;
-        this.length = lengthMin + ":" + lengthSec;
+        this.length = String.format("%d:%02d", lengthMin, lengthSec);
     }
 
     public String getName() {
