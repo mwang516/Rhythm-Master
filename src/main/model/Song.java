@@ -46,7 +46,7 @@ public class Song {
 
     // EFFECTS: displays all information about the song
     public String displaySong() {
-        return this.name + "\n" + "Artist: " + this.artist + "\n"
-                + "BPM: " + this.bpm + "\n" + "Length: " + this.length + "\n";
+        return "NAME: " + this.name + "\n" + "ARTIST: " + this.artist + "\n"
+                + "BPM: " + this.bpm + "\n" + "LENGTH: " + this.length + "\n";
     }
 }
