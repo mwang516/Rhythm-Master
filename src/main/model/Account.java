@@ -12,6 +12,7 @@ public class Account {
     private ArrayList<Score> scores; // list of all past scores
     private String password;
 
+    // EFFECTS: creates new Account with name, age, bio, and password
     public Account(String name, int age, String bio, String password) {
         this.name = name;
         this.age = age;

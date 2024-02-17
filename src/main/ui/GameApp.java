@@ -6,6 +6,7 @@ import model.Song;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Game application
 public class GameApp {
     private Account currentAccount;
     private ArrayList<Account> accounts;
@@ -15,14 +16,14 @@ public class GameApp {
     private Song song3;
     private Scanner input;
 
-    // EFFECTS: starts the game
+    // EFFECTS: starts the game application
     public GameApp() {
-        runGame();
+        runGameApp();
     }
 
     // MODIFIES: this
     // EFFECTS: process user inputs
-    private void runGame() {
+    private void runGameApp() {
         boolean keepGoing = true;
         String command;
 
@@ -46,7 +47,8 @@ public class GameApp {
         System.out.println("Thanks for playing!");
     }
 
-    // EFFECTS: calls
+    // EFFECTS: calls methods according to command input
+    // returns whether to keep going or not
     private boolean processCommand(String command) {
         if (command.equals("1")) {
             displayCurrentAccount();
@@ -55,8 +57,7 @@ public class GameApp {
         } else if (command.equals("3")) {
             playGame();
         } else if (command.equals("4")) {
-            selectAccount();
-            return false;
+            return selectAccount();
         } else {
             System.out.println("Invalid option. Please try again!");
         }
@@ -92,6 +93,7 @@ public class GameApp {
         return validSelection;
     }
 
+    // MODIFIES: this
     // EFFECTS: initializes Game, not yet implemented due to limitations
     private void playGame() {
         String command;
@@ -146,6 +148,7 @@ public class GameApp {
         return false;
     }
 
+    // EFFECTS: sets a to currentAccount and return true
     private boolean passwordMatchLogIn(Account a) {
         System.out.println("Thank you! Logging you in...");
         currentAccount = a;
@@ -238,11 +241,38 @@ public class GameApp {
     private void displayCurrentAccount() {
         String command;
         System.out.println(currentAccount.displayAccount());
+        System.out.println("[s] Set Favourite Song");
         System.out.println("[b] Go back");
         while (true) {
             command = input.next();
+            if (command.equals("s")) {
+                setFavouriteSong();
+                break;
+            }
             if (command.equals("b")) {
                 break;
+            }
+        }
+    }
+
+    // EFFECTS: sets favourite song of currentAccount
+    private void setFavouriteSong() {
+        int num;
+        System.out.println("Select from the following: ");
+        for (int i = 0; i < allSongs.size(); i++) {
+            System.out.println("[" + i + "]" + allSongs.get(i).getName() + "\n");
+        }
+        while (true) {
+            num = Integer.parseInt(input.next());
+
+            if (0 <= num && num < allSongs.size()) {
+                Song favSong = allSongs.get(num);
+
+                currentAccount.setFavouriteSong(favSong);
+                System.out.println("Your current favourite song is: " + favSong.getName());
+                break;
+            } else {
+                System.out.println("Invalid option!");
             }
         }
     }

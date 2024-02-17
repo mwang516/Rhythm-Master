@@ -11,6 +11,7 @@ public class Song {
     // each song will eventually have a chart field which will be an ArrayList,
     // representing the notes in the gameplay but can't be currently implemented
 
+    // EFFECTS: creates new Song with name, artist, lengthMin, lengthSec, and bpm
     public Song(String name, String artist, int lengthMin, int lengthSec, int bpm) {
         this.name = name;
         this.artist = artist;
