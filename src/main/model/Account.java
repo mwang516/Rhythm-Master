@@ -17,7 +17,7 @@ public class Account {
         this.name = name;
         this.age = age;
         this.bio = bio;
-        this.favouriteSong = "none";
+        this.favouriteSong = null;
         this.scores = new ArrayList<>();
         this.password = password;
     }
@@ -29,9 +29,9 @@ public class Account {
     }
 
     public String displayAccount() {
-        return "Account Information: \n" + "Name: " + this.name
-                + "\n" + "Age: " + this.age + "\n" + "Favourite song: "
-                + this.favouriteSong + "\n" + "Bio: \n" + this.bio + "\n";
+        return "Account Information: \n" + "Name: " + getName()
+                + "\n" + "Age: " + getAge() + "\n" + "Favourite song: "
+                + getFavouriteSong() + "\n" + "Bio: \n" + getBio() + "\n";
     }
 
     public String getName() {
@@ -55,7 +55,11 @@ public class Account {
     }
 
     public String getFavouriteSong() {
-        return favouriteSong;
+        if (this.favouriteSong == null) {
+            return "none";
+        } else {
+            return favouriteSong;
+        }
     }
 
     public void setFavouriteSong(Song favouriteSong) {
