@@ -269,7 +269,6 @@ public class GameApp {
                 Song favSong = allSongs.get(num);
 
                 currentAccount.setFavouriteSong(favSong);
-                System.out.println("Your current favourite song is: " + favSong.getName());
                 break;
             } else {
                 System.out.println("Invalid option!");
