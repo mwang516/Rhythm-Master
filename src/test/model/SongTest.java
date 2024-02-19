@@ -25,9 +25,9 @@ public class SongTest {
 
     @Test
     public void DisplaySongTest() {
-        assertEquals("Fractured Angel" + "\n" +
-                "Artist: DJ Raisei" + "\n" +
+        assertEquals("NAME: Fractured Angel" + "\n" +
+                "ARTIST: DJ Raisei" + "\n" +
                 "BPM: 301" + "\n" +
-                "Length: 3:10" + "\n", testSong.displaySong());
+                "LENGTH: 3:10" + "\n", testSong.displaySong());
     }
 }
