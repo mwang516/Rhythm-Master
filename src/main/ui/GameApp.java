@@ -1,6 +1,7 @@
 package ui;
 
 import model.Account;
+import model.AccountLog;
 import model.Song;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 // Game application
 public class GameApp {
     private Account currentAccount;
-    private ArrayList<Account> accounts;
+    private AccountLog accountLog;
     private ArrayList<Song> allSongs;
     private Song song1;
     private Song song2;
@@ -124,7 +125,7 @@ public class GameApp {
         String username;
         String password;
 
-        if (accounts.isEmpty()) {
+        if (accountLog.isEmpty()) {
             System.out.println("No accounts! Please create one.");
             return false;
         }
@@ -132,7 +133,7 @@ public class GameApp {
 
         System.out.println("Please enter your username:");
         username = input.next();
-        for (Account a : accounts) {
+        for (Account a : accountLog.getAccounts()) {
             if (username.equals(a.getName())) {
                 System.out.println("Please enter your password:");
                 password = input.next();
@@ -157,9 +158,11 @@ public class GameApp {
 
     // EFFECTS: displays name of all accounts
     private void displayAccounts() {
+        ArrayList<Account> accs = accountLog.getAccounts();
+
         System.out.println("Select from the following accounts: ");
-        for (Account a : accounts) {
-            System.out.print("[" + accounts.indexOf(a) + "]" + a.getName() + "    ");
+        for (Account a : accs) {
+            System.out.print("[" + accs.indexOf(a) + "]" + a.getName() + "    ");
         }
         System.out.println("\n");
     }
@@ -171,7 +174,7 @@ public class GameApp {
 
         System.out.println("Please enter your username:");
         name = input.next();
-        for (Account a : accounts) {
+        for (Account a : accountLog.getAccounts()) {
             if (name.equals(a.getName())) {
                 System.out.println("This username already exists. Please log in or create a different account!");
                 return false;
@@ -197,7 +200,7 @@ public class GameApp {
         password = input.next();
         System.out.println("Thank you, " + name + "! Creating your account...");
         Account newAccount = new Account(name, age, bio, password);
-        addAccount(newAccount);
+        accountLog.addAccount(newAccount);
         currentAccount = newAccount;
         System.out.println("Welcome!");
     }
@@ -217,9 +220,9 @@ public class GameApp {
         input.useDelimiter("\n");
 
         Account testAccount = new Account("Test", 19, "this is a test account", "test123");
-        accounts = new ArrayList<>();
+        accountLog = new AccountLog();
         currentAccount = testAccount;
-        accounts.add(testAccount);
+        accountLog.addAccount(testAccount);
     }
 
     // EFFECTS: displays all songs
@@ -269,20 +272,12 @@ public class GameApp {
                 Song favSong = allSongs.get(num);
 
                 currentAccount.setFavouriteSong(favSong);
+                System.out.println("Your current favourite song is: " + favSong.getName());
                 break;
             } else {
                 System.out.println("Invalid option!");
             }
         }
-    }
-
-    // EFFECTS: add account to accounts
-    private void addAccount(Account account) {
-        accounts.add(account);
-    }
-
-    public ArrayList<Account> getAccounts() {
-        return accounts;
     }
 
     public Account getCurrentAccount() {
