@@ -3,12 +3,17 @@ package ui;
 import model.Account;
 import model.AccountLog;
 import model.Song;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // Game application
 public class GameApp {
+    private static final String JSON_STORE = "./data/accountlog.json";
     private Account currentAccount;
     private AccountLog accountLog;
     private ArrayList<Song> allSongs;
@@ -16,6 +21,8 @@ public class GameApp {
     private Song song2;
     private Song song3;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: starts the game application
     public GameApp() {
@@ -39,13 +46,47 @@ public class GameApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                keepGoing = false;
+                keepGoing = askToSave();
             } else {
                 keepGoing = processCommand(command);
             }
         }
+    }
 
+    private boolean loadProgress() {
+        try {
+            accountLog = jsonReader.read();
+            currentAccount = accountLog.getAccounts().get(0);
+            System.out.println("Loaded progress from " + JSON_STORE);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Unable to load from file: " + JSON_STORE);
+            return false;
+        }
+    }
+
+    private boolean askToSave() {
+        boolean keepAsking = true;
+        System.out.println("Would you like to save your progress? \n[y] Yes \n[n] No");
+        while (keepAsking) {
+            String command = input.next();
+            if (command.equals("y")) {
+                try {
+                    jsonWriter.open();
+                    jsonWriter.write(accountLog);
+                    jsonWriter.close();
+                    System.out.println("Saved the progress to " + JSON_STORE);
+                    keepAsking = false;
+                } catch (FileNotFoundException e) {
+                    System.out.println("Unable to write to file: " + JSON_STORE);
+                    keepAsking = false;
+                }
+            } else if (command.equals("n")) {
+                keepAsking = false;
+            }
+        }
         System.out.println("Thanks for playing!");
+        return false;
     }
 
     // EFFECTS: calls methods according to command input
@@ -76,7 +117,8 @@ public class GameApp {
         System.out.println("Welcome to Rhythm Master! Please log in or create an account.");
 
         while (!validSelection) {
-            System.out.println("[1] Select from existing accounts\n[2] Add new account\n[q] Quit");
+            System.out.println("[1] Select from existing accounts\n[2] Add new account\n"
+                    + "[l] Load progress \n[q] Quit");
 
             command = input.next();
             command = command.toLowerCase();
@@ -85,8 +127,10 @@ public class GameApp {
                 validSelection = login();
             } else if (command.equals("2")) {
                 validSelection = makeAccount();
+            } else if (command.equals("l")) {
+                return loadProgress();
             } else if (command.equals("q")) {
-                break;
+                return askToSave();
             } else {
                 System.out.println("Invalid selection, please try again.");
             }
@@ -199,7 +243,7 @@ public class GameApp {
         System.out.println("Please enter your password:");
         password = input.next();
         System.out.println("Thank you, " + name + "! Creating your account...");
-        Account newAccount = new Account(name, age, bio, password);
+        Account newAccount = new Account(name, age, bio, password, "none");
         accountLog.addAccount(newAccount);
         currentAccount = newAccount;
         System.out.println("Welcome!");
@@ -218,9 +262,11 @@ public class GameApp {
 
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-
-        Account testAccount = new Account("Test", 19, "this is a test account", "test123");
         accountLog = new AccountLog();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+        Account testAccount = new Account("Test", 19, "this is a test account", "test123","none");
         currentAccount = testAccount;
         accountLog.addAccount(testAccount);
     }

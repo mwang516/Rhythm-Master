@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents an account with name, age, bio, favourite song,
 // and scores of past attempts
-public class Account {
+public class Account implements Writable {
     private String name; // name of player
     private int age;
     private String bio;
@@ -13,11 +17,11 @@ public class Account {
     private String password;
 
     // EFFECTS: creates new Account with name, age, bio, and password
-    public Account(String name, int age, String bio, String password) {
+    public Account(String name, int age, String bio, String password, String favSong) {
         this.name = name;
         this.age = age;
         this.bio = bio;
-        this.favouriteSong = null;
+        this.favouriteSong = favSong;
         this.scores = new ArrayList<>();
         this.password = password;
     }
@@ -55,11 +59,7 @@ public class Account {
     }
 
     public String getFavouriteSong() {
-        if (this.favouriteSong == null) {
-            return "none";
-        } else {
-            return favouriteSong;
-        }
+        return favouriteSong;
     }
 
     public void setFavouriteSong(Song favouriteSong) {
@@ -69,5 +69,29 @@ public class Account {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("name", name);
+        json.put("age", age);
+        json.put("bio", bio);
+        json.put("favourite song", favouriteSong);
+        json.put("scores", scoresToJson());
+        json.put("password", password);
+
+        return json;
+    }
+
+    private JSONArray scoresToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Score s : scores) {
+            jsonArray.put(s.toJson());
+        }
+
+        return jsonArray;
     }
 }

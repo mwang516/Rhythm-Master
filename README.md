@@ -32,4 +32,6 @@ In the context of the rhythm game, my *user stories* are as follows:
 - As a user, I want to be able to select a song to play at random
 - As a user, I want to be able to use key controls to play the game
 - As a user, I want to be able to implement custom controls
+- As a user, I want to be able to save my data when I exit if I choose to do so
+- As a user, I want to be able to load my data when I reopen the application if I choose to do so
 

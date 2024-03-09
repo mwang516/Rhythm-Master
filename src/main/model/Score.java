@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a score entry with song name, score, and accuracy
-public class Score {
+public class Score implements Writable {
     private final String name; // name of the song
     private final int score; // total score out of 1000000
     private final double accuracy; // accuracy represented by a percentage
@@ -22,5 +25,16 @@ public class Score {
 
     public double getAccuracy() {
         return accuracy;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("name", name);
+        json.put("score", score);
+        json.put("accuracy", accuracy);
+
+        return json;
     }
 }

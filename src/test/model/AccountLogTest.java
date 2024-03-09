@@ -13,7 +13,7 @@ class AccountLogTest {
 
     @BeforeEach
     public void runBefore() {
-        testAccount = new Account("Matthew", 19, "Hello world", "1234");
+        testAccount = new Account("Matthew", 19, "Hello world", "1234","none");
         testLog = new AccountLog();
     }
 
@@ -26,6 +26,11 @@ class AccountLogTest {
     public void addAccountTest() {
         testLog.addAccount(testAccount);
         assertEquals(testAccount, testLog.getAccounts().get(0));
+    }
+
+    @Test
+    public void isEmptyTest() {
+        assertTrue(testLog.isEmpty());
     }
 
     @Test

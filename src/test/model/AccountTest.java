@@ -12,7 +12,7 @@ class AccountTest {
 
     @BeforeEach
     public void runBefore() {
-        testAccount = new Account("Matthew", 19, "Hello world", "1234");
+        testAccount = new Account("Matthew", 19, "Hello world", "1234","none");
         testSong = new Song("Fractured Angel", "DJ Raisei", 3, 10, 301);
         testScore = new Score("Fractured Angel", 35, 100);
     }
