@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +10,14 @@ class AccountTest {
     Account testAccount;
     Song testSong;
     Score testScore;
+    JSONArray jsonArrayTest;
 
     @BeforeEach
     public void runBefore() {
         testAccount = new Account("Matthew", 19, "Hello world", "1234","none");
         testSong = new Song("Fractured Angel", "DJ Raisei", 3, 10, 301);
         testScore = new Score("Fractured Angel", 35, 100);
+        jsonArrayTest = new JSONArray();
     }
 
     @Test

@@ -64,7 +64,6 @@ public class Account implements Writable {
 
     public void setFavouriteSong(Song favouriteSong) {
         this.favouriteSong = favouriteSong.getName();
-        System.out.println("Your current favourite song is: " + favouriteSong.getName());
     }
 
     public String getPassword() {

@@ -2,9 +2,12 @@ package persistence;
 
 import model.Account;
 import model.AccountLog;
+import model.Score;
+import model.Song;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class JsonWriterTest extends JsonTest {
     Account acc1;
     Account acc2;
+    Score score1 = new Score("test", 100, 0.2);
 
     @Test
     void testWriterInvalidFile() {
@@ -46,6 +50,7 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralAccountLog() {
         acc1 = new Account("1", 1,"1", "1", "1");
         acc2 = new Account("2", 2,"2", "2", "2");
+        acc1.addScore(score1);
         try {
             AccountLog accountLog = new AccountLog();
             accountLog.addAccount(acc1);
