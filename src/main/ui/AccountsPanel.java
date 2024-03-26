@@ -1,5 +1,7 @@
-package model;
+package ui;
 
+import model.Account;
+import model.AccountLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -22,24 +24,16 @@ public class AccountsPanel extends JPanel {
     private static final int BTN_HEIGHT = 135;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private AccountLog accountLog;
     private JLabel welcomelbl;
     private JPanel buttonPanel;
-    private AccountLog accountLog;
-    private GameAppPanel gpp;
+    private GameApp gameApp;
 
     // EFFECTS: create a new AccountsPanel with welcome label and accounts
-    public AccountsPanel() {
+    public AccountsPanel(GameApp gameApp) {
+        this.gameApp = gameApp;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         init();
-
-        welcomelbl = new JLabel(WELCOME);
-        welcomelbl.setPreferredSize(new Dimension(WIDTH, LBL_HEIGHT));
-        welcomelbl.setOpaque(true);
-        welcomelbl.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomelbl.setBackground(new Color(0xb4b4b4));
-
-        add(welcomelbl);
-        addButtons();
     }
 
     // EFFECTS: add and display buttons
@@ -78,7 +72,8 @@ public class AccountsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(bioArea);
 
         JPanel panel = new JPanel(new GridLayout(0, 1, 5, 5));
-        setUpNewAccountpanel(nameField, ageField, passwordField, scrollPane, panel);
+        panel.setPreferredSize(new Dimension(400, 300));
+        setUpNewAccountPanel(nameField, ageField, passwordField, scrollPane, panel);
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Create New Account",
                 JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
@@ -91,13 +86,15 @@ public class AccountsPanel extends JPanel {
 
             Account newAccount = new Account(name, age, bio, password, "none");
             accountLog.addAccount(newAccount);
+            JOptionPane.showMessageDialog(AccountsPanel.this, "Welcome!");
 
-            createNewGameApp(newAccount);
+            saveProgress();
+            gameApp.createNewGameApp(newAccount, AccountsPanel.this);
         }
     }
 
     // EFFECTS: helper to set up new account being created
-    private void setUpNewAccountpanel(JTextField nameField, JTextField ageField,
+    private void setUpNewAccountPanel(JTextField nameField, JTextField ageField,
                                       JTextField passwordField, JScrollPane scrollPane, JPanel panel) {
         panel.add(new JLabel("Name:"));
         panel.add(nameField);
@@ -121,7 +118,8 @@ public class AccountsPanel extends JPanel {
 
                     if (authenticate(password)) {
                         JOptionPane.showMessageDialog(AccountsPanel.this, "Welcome!");
-                        createNewGameApp(acc);
+                        saveProgress();
+                        gameApp.createNewGameApp(acc, AccountsPanel.this);
                     } else {
                         JOptionPane.showMessageDialog(AccountsPanel.this, "Wrong password!");
                     }
@@ -162,16 +160,6 @@ public class AccountsPanel extends JPanel {
             }
         });
         return loadButton;
-    }
-
-    // EFFECTS: update accountLog and display new AccountsPanel
-    private void updateAccountsPanel() {
-        accountLog = readProgress();
-        removeAll();
-        add(welcomelbl);
-        addButtons();
-        revalidate();
-        repaint();
     }
 
     // EFFECTS: helper method to create a save or quit button
@@ -218,15 +206,6 @@ public class AccountsPanel extends JPanel {
         }
     }
 
-    // EFFECTS: initialize new GameAppPanel after authentication
-    private void createNewGameApp(Account acc) {
-        gpp = new GameAppPanel(acc);
-        removeAll();
-        add(gpp, BorderLayout.CENTER);
-        revalidate();
-        repaint();
-    }
-
     // EFFECTS: helper to read user input for password
     private String retrievePasswordFromUser() {
         JPasswordField passwordField = new JPasswordField();
@@ -239,17 +218,32 @@ public class AccountsPanel extends JPanel {
         }
     }
 
+    // EFFECTS: update accountLog and display new AccountsPanel
+    private void updateAccountsPanel() {
+        accountLog = readProgress();
+        removeAll();
+        add(welcomelbl);
+        addButtons();
+        revalidate();
+        repaint();
+    }
+
     // EFFECTS: initialize accountLog and data writer/readers
     private void init() {
-        accountLog = new AccountLog();
-        Account testAccount = new Account("Test", 19,
-                "this is a test account", "test123", "none");
-        Account testAccount2 = new Account("Test2", 19,
-                "this is a test account", "test123", "none");
-        accountLog.addAccount(testAccount);
-        accountLog.addAccount(testAccount2);
-
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+
+        welcomelbl = new JLabel(WELCOME);
+        welcomelbl.setPreferredSize(new Dimension(WIDTH, LBL_HEIGHT));
+        welcomelbl.setOpaque(true);
+        welcomelbl.setHorizontalAlignment(SwingConstants.CENTER);
+        welcomelbl.setBackground(new Color(0xb4b4b4));
+        updateAccountsPanel();
+//        Account testAccount = new Account("Test", 19,
+//                "this is a test account", "test123", "none");
+//        Account testAccount2 = new Account("Test2", 19,
+//                "this is a test account", "test123", "none");
+//        accountLog.addAccount(testAccount);
+//        accountLog.addAccount(testAccount2);
     }
 }

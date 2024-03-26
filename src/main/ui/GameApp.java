@@ -1,22 +1,21 @@
 package ui;
 
-import model.AccountsPanel;
-import model.Song;
+import model.Account;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 // Game application
 public class GameApp extends JFrame {
     private AccountsPanel acp;
+    private GameAppPanel gpp;
 
     // EFFECTS: starts the game application
     public GameApp() {
         super("Rhythm Master");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
-        acp = new AccountsPanel();
+        acp = new AccountsPanel(this);
         add(acp);
 
         pack();
@@ -24,21 +23,26 @@ public class GameApp extends JFrame {
         setVisible(true);
     }
 
-//    // EFFECTS: calls methods according to command input
-//    // returns whether to keep going or not
-//    private boolean processCommand(String command) {
-//        if (command.equals("1")) {
-//            displayCurrentAccount();
-//        } else if (command.equals("2")) {
-//            viewAllSongs();
-//        } else if (command.equals("3")) {
-//            playGame();
-//        } else if (command.equals("4")) {
-//            return selectAccount();
-//        } else {
-//            System.out.println("Invalid option. Please try again!");
-//        }
-//        return true;
+    // EFFECTS: initialize new AccountsPanel after logging out
+    public void createNewAccountsPanel() {
+        acp = new AccountsPanel(this);
+
+        getContentPane().removeAll();
+        getContentPane().add(acp);
+        revalidate();
+        repaint();
+    }
+
+    // EFFECTS: initialize new GameAppPanel after authentication
+    public void createNewGameApp(Account acc, AccountsPanel acsp) {
+        acp = acsp;
+        gpp = new GameAppPanel(acc, this);
+        getContentPane().removeAll();
+        getContentPane().add(gpp);
+        revalidate();
+        repaint();
+    }
+
 //    }
 //
 //    // MODIFIES: this
