@@ -1,6 +1,7 @@
 package ui;
 
 import model.Account;
+import model.Song;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 public class GameApp extends JFrame {
     private AccountsPanel acp;
     private GameAppPanel gpp;
+    private GamePanel gp;
 
     // EFFECTS: starts the game application
     public GameApp() {
@@ -39,6 +41,15 @@ public class GameApp extends JFrame {
         gpp = new GameAppPanel(acc, this);
         getContentPane().removeAll();
         getContentPane().add(gpp);
+        revalidate();
+        repaint();
+    }
+
+    public void createNewGame(Account acc, Song s) {
+        gp = new GamePanel(acc, s);
+
+        getContentPane().removeAll();
+        getContentPane().add(gp);
         revalidate();
         repaint();
     }
