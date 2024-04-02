@@ -5,12 +5,20 @@ import model.Song;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 // Game application
 public class GameApp extends JFrame {
+    private static final int INTERVAL = 5;
     private AccountsPanel acp;
     private GameAppPanel gpp;
+    private ScorePanel sp;
     private GamePanel gp;
+    private Game game;
+    private Timer timer;
 
     // EFFECTS: starts the game application
     public GameApp() {
@@ -19,6 +27,7 @@ public class GameApp extends JFrame {
         setUndecorated(false);
         acp = new AccountsPanel(this);
         add(acp);
+        addKeyListener(new KeyHandler());
 
         pack();
         centreOnScreen();
@@ -45,60 +54,45 @@ public class GameApp extends JFrame {
         repaint();
     }
 
+    // EFFECTS: creates a new GamePanel and Game with given song
     public void createNewGame(Account acc, Song s) {
-        gp = new GamePanel(acc, s);
+        game = new Game(s);
+        gp = new GamePanel(acc, s, game);
+        sp = new ScorePanel(game);
+        game.addGamePanel(gp);
 
         getContentPane().removeAll();
         getContentPane().add(gp);
+        getContentPane().add(sp);
         revalidate();
         repaint();
+        addTimer();
     }
 
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: initializes Game
-//    private void playGame() {
-//        String command;
-//
-//        System.out.println("Coming soon!!\n");
-//        System.out.println("[b] Go back");
-//        while (true) {
-//            command = input.next();
-//            if (command.equals("b")) {
-//                break;
-//            }
-//        }
-//    }
-//
-//    // EFFECTS: displays all options for user to choose from
-//    private void displayMenu() {
-//        System.out.println("Please choose from the following options: ");
-//        System.out.println("[1] View my account");
-//        System.out.println("[2] View all songs");
-//        System.out.println("[3] Play");
-//        System.out.println("[4] Log out");
-//        System.out.println("[q] Quit");
-//    }
-//
-//    // EFFECTS: display info of currentAccount
-//    private void displayCurrentAccount() {
-//        String command;
-//        System.out.println(currentAccount.displayAccount());
-//        System.out.println("[s] Set Favourite Song");
-//        System.out.println("[b] Go back");
-//        while (true) {
-//            command = input.next();
-//            if (command.equals("s")) {
-//                setFavouriteSong();
-//                break;
-//            }
-//            if (command.equals("b")) {
-//                break;
-//            }
-//        }
-//    }
+    private void addTimer() {
+        timer = new Timer(INTERVAL, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                game.update();
+                gp.paintComponent(getGraphics());
+                sp.update();
+            }
+        });
 
+        timer.start();
+    }
+
+    /*
+     * A key handler to respond to key events
+     */
+    private class KeyHandler extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            game.keyPressed(e.getKeyCode());
+        }
+    }
+
+    // EFFECTS: helper method for setting the location of panel at center of screen
     private void centreOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
