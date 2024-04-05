@@ -35,3 +35,14 @@ In the context of the rhythm game, my *user stories* are as follows:
 - As a user, I want to be able to save my data when I exit if I choose to do so
 - As a user, I want to be able to load my data when I reopen the application if I choose to do so
 
+Phase 4: Task 2
+
+Fri Apr 05 15:10:33 PDT 2024
+New account created with name: Matthew
+
+Fri Apr 05 15:10:33 PDT 2024
+New account created with name: John Doe
+
+Fri Apr 05 15:10:33 PDT 2024
+All accounts displayed
+
