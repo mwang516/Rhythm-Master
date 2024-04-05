@@ -3,17 +3,18 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents the score for game
 public class ScorePanel extends JPanel {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
     public static final int LBL_WIDTH = 100;
     public static final int LBL_HEIGHT = 25;
     public static final int BOT_SPACE = 5;
-    private Game g;
+    private Game game;
     private JLabel scoreLbl;
 
     public ScorePanel(Game g) {
-        this.g = g;
+        this.game = g;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         scoreLbl = new JLabel(String.valueOf(g.getScore()));
@@ -23,6 +24,6 @@ public class ScorePanel extends JPanel {
     }
 
     public void update() {
-        scoreLbl.setText(String.valueOf(Math.round(g.getScore())));
+        scoreLbl.setText(String.valueOf(Math.round(game.getScore())));
     }
 }

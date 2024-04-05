@@ -69,6 +69,7 @@ public class GameApp extends JFrame {
         addTimer();
     }
 
+    // EFFECTS: starts a timer for the game
     private void addTimer() {
         timer = new Timer(INTERVAL, new ActionListener() {
             @Override

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// Represents a game
 public class Game {
     public static final int MAX_SCORE = 1000000;
     private GamePanel gp;
@@ -27,6 +28,7 @@ public class Game {
     private int perfects;
     private int goods;
 
+    // EFFECTS: creates new game with given song and beatmap
     public Game(Song s) {
         String file = chooseMap(s);
         beatMap = BeatmapLoader.loadListFromFile(file);
@@ -37,6 +39,7 @@ public class Game {
         setUp();
     }
 
+    // EFFECTS: helper method to setup and clear all progress
     private void setUp() {
         score = 0;
         misses = 0;
@@ -51,6 +54,7 @@ public class Game {
         notesToRemove = new ArrayList<>();
     }
 
+    // EFFECTS: update method for the game
     public void update() {
         moveActiveNotes();
         if (!isGameOver) {
@@ -61,7 +65,7 @@ public class Game {
         gp.removeAndRepaintNotes(notesToRemove);
     }
 
-
+    // EFFECTS: selects the appropriate beatmap file based on song
     private String chooseMap(Song s) {
         String name = s.getName();
         if (name == "c.s.q.n.") {
@@ -85,12 +89,14 @@ public class Game {
 
     }
 
+    // EFFECTS: move current notes
     private void moveActiveNotes() {
         for (Note n : activeNotes) {
             n.move();
         }
     }
 
+    // EFFECTS: adds next note based on iteration amount
     private void checkAndAddNextNoteEntry() {
         iterationAmt++;
         if (iterationAmt % 34 == 0 && !beatMap.isEmpty()) {
@@ -103,13 +109,12 @@ public class Game {
 
                 activeNotes.add(newNote);
                 processLane(newNote);
-                System.out.println("note added");
             }
             beatMap.remove(0);
-            System.out.println("beatmap.remove worked");
         }
     }
 
+    // EFFECTS: checks for note in given lane after button is hit
     private void processLane(Note newNote) {
         int lane = newNote.getLane();
         if (lane == 1) {
@@ -123,6 +128,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: check if game is over
     private void checkGameOver() {
         isGameOver = activeNotes.isEmpty() && beatMap.isEmpty();
         if (isGameOver) {
@@ -130,6 +136,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: remove notes that are out of bounds and add to miss
     private void removeOutOfBoundsNotes() {
         for (Note n : activeNotes) {
             if (n.getY() >= GamePanel.HEIGHT) {
@@ -149,6 +156,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: process special key inputs
     public void keyPressed(int keyCode) {
         if (keyCode == KeyEvent.VK_ESCAPE) {
             pauseGame();
@@ -172,6 +180,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: check for note in given lane
     private void checkForNoteInLane(List<Note> notesInLane) {
         if (!notesInLane.isEmpty()) {
             Note note = notesInLane.get(0);
@@ -179,6 +188,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: check the accuracy of note being hit and process score
     private void checkForNote(Note note, List<Note> notesInLane) {
         int diff = Math.abs(GamePanel.JGMT_LN_Y - note.getY());
         if (diff <= 20) {
@@ -196,6 +206,7 @@ public class Game {
         System.out.println("note removed");
     }
 
+    // EFFECTS: counts total amount of notes
     private int countNotes() {
         int noteCount = 0;
         for (Integer i : beatMap) {
@@ -206,6 +217,7 @@ public class Game {
         return noteCount;
     }
 
+    // EFFECTS: adds GamePanel
     public void addGamePanel(GamePanel gp) {
         this.gp = gp;
     }
@@ -232,21 +244,5 @@ public class Game {
 
     public int getGoods() {
         return goods;
-    }
-
-    public List<Note> getNotesInLane1() {
-        return notesInLane1;
-    }
-
-    public List<Note> getNotesInLane2() {
-        return notesInLane2;
-    }
-
-    public List<Note> getNotesInLane3() {
-        return notesInLane3;
-    }
-
-    public List<Note> getNotesInLane4() {
-        return notesInLane4;
     }
 }

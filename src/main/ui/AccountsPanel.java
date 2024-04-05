@@ -2,6 +2,8 @@ package ui;
 
 import model.Account;
 import model.AccountLog;
+import model.EventLog;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -173,6 +175,7 @@ public class AccountsPanel extends JPanel {
                         "Save or Quit", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     saveProgress();
+                    printLog();
                     System.exit(0);
                 } else if (option == JOptionPane.NO_OPTION) {
                     System.exit(0);
@@ -180,6 +183,14 @@ public class AccountsPanel extends JPanel {
             }
         });
         return saveQuitButton;
+    }
+
+    // EFFECTS: prints log to console
+    private void printLog() {
+        EventLog el = EventLog.getInstance();
+        for (Event e : el) {
+            System.out.println(e.toString() + "\n");
+        }
     }
 
     // EFFECTS: save progress to destination
@@ -239,11 +250,5 @@ public class AccountsPanel extends JPanel {
         welcomelbl.setHorizontalAlignment(SwingConstants.CENTER);
         welcomelbl.setBackground(new Color(0xb4b4b4));
         updateAccountsPanel();
-//        Account testAccount = new Account("Test", 19,
-//                "this is a test account", "test123", "none");
-//        Account testAccount2 = new Account("Test2", 19,
-//                "this is a test account", "test123", "none");
-//        accountLog.addAccount(testAccount);
-//        accountLog.addAccount(testAccount2);
     }
 }

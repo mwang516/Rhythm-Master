@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// EFFECTS: helper class to load the beatmap from file
 public class BeatmapLoader {
     public static List<Integer> loadListFromFile(String filename) {
         List<Integer> numbers = new ArrayList<>();

@@ -23,9 +23,11 @@ public class AccountLog implements Writable {
     }
 
     public ArrayList<Account> getAccounts() {
+        EventLog.getInstance().logEvent(new Event("All accounts displayed"));
         return this.accounts;
     }
 
+    // EFFECTS: turns AccountLog to Json
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -35,6 +37,7 @@ public class AccountLog implements Writable {
         return json;
     }
 
+    // EFFECTS: turns accounts to Json
     private JSONArray accountsToJson() {
         JSONArray jsonArray = new JSONArray();
 

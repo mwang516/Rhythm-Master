@@ -24,6 +24,7 @@ public class Account implements Writable {
         this.favouriteSong = favSong;
         this.scores = new ArrayList<>();
         this.password = password;
+        EventLog.getInstance().logEvent(new Event("New account created with name: " + name));
     }
 
     // MODIFIES: this
