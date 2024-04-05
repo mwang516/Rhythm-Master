@@ -21,19 +21,11 @@ public class Event {
         dateLogged = Calendar.getInstance().getTime();
         this.description = description;
     }
-	
-	/**
-	 * Gets the date of this event (includes time).
-	 * @return  the date of the event
-	 */
+
     public Date getDate() {
         return dateLogged;
-	}
-	
-	/**
-	 * Gets the description of this event.
-	 * @return  the description of the event
-	 */
+    }
+
     public String getDescription() {
         return description;
     }
