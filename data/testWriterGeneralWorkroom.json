@@ -1,0 +1,22 @@
+{"accounts": [
+    {
+        "password": "1",
+        "scores": [{
+            "score": 100,
+            "name": "test",
+            "accuracy": 0.2
+        }],
+        "favourite song": "1",
+        "name": "1",
+        "bio": "1",
+        "age": 1
+    },
+    {
+        "password": "2",
+        "scores": [],
+        "favourite song": "2",
+        "name": "2",
+        "bio": "2",
+        "age": 2
+    }
+]}

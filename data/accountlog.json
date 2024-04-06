@@ -1,0 +1,66 @@
+{"accounts": [
+    {
+        "password": "test123",
+        "scores": [],
+        "favourite song": "none",
+        "name": "Test",
+        "bio": "this is a test account",
+        "age": 19
+    },
+    {
+        "password": "",
+        "scores": [],
+        "favourite song": "none",
+        "name": "lukas",
+        "bio": "",
+        "age": 18
+    },
+    {
+        "password": "nelson",
+        "scores": [],
+        "favourite song": "none",
+        "name": "Daniel",
+        "bio": "hi im daniel",
+        "age": 19
+    },
+    {
+        "password": "even050419",
+        "scores": [],
+        "favourite song": "none",
+        "name": "EVEN",
+        "bio": "1234",
+        "age": 19
+    },
+    {
+        "password": "asdf1234",
+        "scores": [],
+        "favourite song": "none",
+        "name": "vsw211",
+        "bio": "iubhlvgzrd",
+        "age": 20
+    },
+    {
+        "password": "2020",
+        "scores": [],
+        "favourite song": "none",
+        "name": "matt",
+        "bio": "hello ",
+        "age": 19
+    },
+    {
+        "password": "2005",
+        "scores": [],
+        "favourite song": "none",
+        "name": "Matthew",
+        "bio": "123r\n",
+        "age": 19
+    },
+    {
+        "password": "200",
+        "scores": [],
+        "favourite song": "none",
+        "name": "John Doe",
+        "bio": "helo",
+        "age": 19
+    }
+]}
