@@ -203,7 +203,6 @@ public class Game {
 
         notesInLane.remove(note);
         notesToRemove.add(note);
-        System.out.println("note removed");
     }
 
     // EFFECTS: counts total amount of notes

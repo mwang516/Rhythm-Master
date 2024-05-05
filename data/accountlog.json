@@ -62,5 +62,13 @@
         "name": "John Doe",
         "bio": "helo",
         "age": 19
+    },
+    {
+        "password": "123456",
+        "scores": [],
+        "favourite song": "none",
+        "name": "Mich",
+        "bio": "blabla",
+        "age": 101
     }
 ]}

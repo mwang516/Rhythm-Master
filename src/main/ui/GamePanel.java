@@ -115,7 +115,6 @@ public class GamePanel extends JPanel {
 
     // EFFECTS: draw the result screen after game is over
     private void resultScreen() {
-        System.out.println("result screen painted");
         removeAll();
         JLabel scoresLbl = new JLabel("Score: " + Math.round(game.getScore()));
         scoresLbl.setPreferredSize(new Dimension(WIDTH / 2, LBL_HEIGHT));
